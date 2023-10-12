@@ -4,8 +4,6 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import http from 'http';
 
-import fetchDataGhibli from './middleware/fetchs.js'
-
 const MONGODB_URI =
   "mongodb+srv://denys:295q6722822@cluster0.fk2cpgo.mongodb.net/studioGhibli?retryWrites=true&w=majority";
   
@@ -17,7 +15,6 @@ app.use(cors({ credentials: true }));
 
 mongoose.connect(MONGODB_URI)
     .then(async () => {
-        await fetchDataGhibli();
         const server = http.createServer(app);
         server.listen(8080, () => {
             console.log('start server');

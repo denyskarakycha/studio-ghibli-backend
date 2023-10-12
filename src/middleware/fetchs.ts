@@ -1,8 +1,9 @@
 import axios from 'axios';
+import Film from '../models/film.js';
 
 const STUDIO_GHILIBLI_API = 'https://ghibliapi.vercel.app/films';
 
-interface Film {
+interface FilmInfo {
   title: string,
   original_title: string,
   image: string,
@@ -19,7 +20,7 @@ const fetchDataGhibli = async () => {
     const response = await axios.get(STUDIO_GHILIBLI_API);
 
     if (response.status === 200) {
-      const films: Film[] = response.data.map((filmData: Film) => {
+      const films: FilmInfo[] = response.data.map((filmData: FilmInfo) => {
         return {
           title: filmData.title,
           originalTitle: filmData.original_title,
@@ -32,6 +33,7 @@ const fetchDataGhibli = async () => {
           runningTime: filmData.running_time
         };
       });
+      await Film.insertMany(films);
     } else {
       console.error('Failed to fetch data from the API.');
     }
