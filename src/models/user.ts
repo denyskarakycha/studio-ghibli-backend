@@ -1,7 +1,13 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import mongoose, { Schema, Document } from 'mongoose';
 
-const userSchema = new Schema({
+
+export interface IUserModel extends Document {
+    gmail: string;
+    password: String;
+    comments: Schema.Types.ObjectId[]
+}
+
+const userSchema: Schema = new Schema({
     email: {
         type: String,
         required: true
@@ -16,4 +22,4 @@ const userSchema = new Schema({
     }]
 });
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model<IUserModel>('User', userSchema);

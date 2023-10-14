@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Film from '../models/film.js';
+import User, {IUser} from '../models/user.js'
 
 const STUDIO_GHILIBLI_API = 'https://ghibliapi.vercel.app/films';
 

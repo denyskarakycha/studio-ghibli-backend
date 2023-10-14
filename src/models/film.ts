@@ -1,7 +1,20 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import mongoose, {Schema, Document} from 'mongoose';
 
-const filmSchema = new Schema({
+export interface IFilmModel extends Document {
+    title: string,
+    originalTitle: string,
+    imageUrl: string,
+    bannerUrl: string,
+    description: string,
+    director: string,
+    producer: string,
+    releaseDate: string,
+    runningTime: string,
+    comments: Schema.Types.ObjectId[]
+}
+
+
+const filmSchema: Schema = new Schema({
     title: {
         type: String,
         required: true,
@@ -44,4 +57,4 @@ const filmSchema = new Schema({
     }]
 });
 
-export default mongoose.model('Film', filmSchema);
+export default mongoose.model<IFilmModel>('Film', filmSchema);
