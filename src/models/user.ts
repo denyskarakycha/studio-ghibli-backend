@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 
 export interface IUserModel extends Document {
-    gmail: string;
+    email: string;
     password: String;
     comments: Schema.Types.ObjectId[]
 }
@@ -14,7 +14,6 @@ const userSchema: Schema = new Schema({
     },
     password: {
         type: String,
-        required: true
     },
     comments: [{
         type: Schema.Types.ObjectId,
