@@ -10,7 +10,7 @@ export interface IFilmModel extends Document {
     producer: string,
     releaseDate: string,
     runningTime: string,
-    comments: Schema.Types.ObjectId[]
+    comments: mongoose.Types.ObjectId[]
 }
 
 

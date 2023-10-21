@@ -10,6 +10,8 @@ import { ExtendedError } from './class/error.js';
 import filmRoutes from './router/film.js';
 import authRoutes from './router/auth.js';
 import googleRoutes from './router/google-auth.js'
+import commentRoutes from './router/comment.js'
+import userRoutes from "./router/user.js"
 
 
 const MONGODB_URI =
@@ -23,6 +25,8 @@ app.use(cors({ credentials: true }));
 
 
 app.use('/google', googleRoutes);
+app.use('/comment', commentRoutes);
+app.use('/user', userRoutes);
 app.use(filmRoutes);
 app.use(authRoutes);
 

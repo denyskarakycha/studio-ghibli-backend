@@ -2,9 +2,19 @@ import { Request, Response, NextFunction } from 'express';
 import { ExtendedError } from '../class/error.js';
 import jwt, { Jwt } from 'jsonwebtoken';
 
-interface IToken {
-  email: string,
-  userId: string
+declare module 'jsonwebtoken' {
+  export interface UserDataJwtPayload extends jwt.JwtPayload {
+    email: string;
+    userId: string;
+  }
+}
+
+declare global {
+  namespace Express {
+    interface Locals {
+      decoded: jwt.UserDataJwtPayload;
+    }
+  }
 }
 
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,19 +25,14 @@ export const isAuth = async (req: Request, res: Response, next: NextFunction) =>
       throw error;
     }
     const token = authHeader.split(' ')[1];
-    jwt.verify(token, 'secret', (error: any, decoded: any ) => {
-      if(error) {
-        const error = new ExtendedError('Wrong token.', 401);
-        throw error; 
-      }
-      if (!decoded) {
-        const error = new ExtendedError('Wrong token', 500);
-        throw error;  
-      } else {
-        res.locals.user = decoded;
-        next();
-      }
-    });
+    const decoded = <jwt.UserDataJwtPayload>jwt.verify(token, 'secret');
+    if (!decoded) {
+      const error = new ExtendedError('Wrong token', 500);
+      throw error;
+    } else {
+      req.app.locals.decoded = decoded;
+      next();
+    }
   } catch (error) {
     next(error);
   }
