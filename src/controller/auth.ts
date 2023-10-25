@@ -15,10 +15,10 @@ declare global {
   }
 }
 
-  type RequestBody = {
-    email: string;
-    password: string;
-  };
+type RequestBody = {
+  email: string;
+  password: string;
+};
 
 export const login: RequestHandler = async (req, res, next) => {
   try {
