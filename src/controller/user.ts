@@ -1,10 +1,8 @@
 import { RequestHandler } from 'express';
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import { ExtendedError } from '../class/error.js';
 
-import User, { IUserModel } from '../models/user.js';
-import Comment, { ICommentModel } from '../models/comment.js';
-import mongoose, { Query, Types } from 'mongoose';
+import User from '../models/user.js';
 import Film from '../models/film.js';
 import Rating from '../models/rating.js';
 
@@ -89,6 +87,11 @@ export const deleteWatchStatus: RequestHandler = async (req, res, next) => {
 
 export const postRating: RequestHandler = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new ExtendedError('Validation failed', 422, errors.array());
+      throw error;
+    }
     const filmId = req.params.filmId;
     const userDecodedData = req.app.locals.decoded;
     const body: RequestBody = req.body;
@@ -138,6 +141,11 @@ export const postRating: RequestHandler = async (req, res, next) => {
 
 export const updateRating: RequestHandler = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new ExtendedError('Validation failed', 422, errors.array());
+      throw error;
+    }
     const filmId = req.params.filmId;
     const userDecodedData = req.app.locals.decoded;
     const body: RequestBody = req.body;

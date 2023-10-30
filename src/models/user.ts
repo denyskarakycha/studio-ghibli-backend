@@ -1,6 +1,4 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { ICommentModel } from './comment.js';
-import { error } from 'console';
 import { ExtendedError } from '../class/error.js';
 
 type TUserRating = {
@@ -59,7 +57,7 @@ const userSchema: Schema<IUserModel> = new Schema({
 userSchema.method('addMark', async function (ratingId: mongoose.Types.ObjectId, mark: number): Promise<IUserModel> {
   this.ratings.forEach((items) => {
     if (items.ratingId.toString() === ratingId.toString()) {
-      throw new ExtendedError('Mark is exists', 400);
+      throw new ExtendedError('Mark is exists', 409);
     }
   });
   this.ratings.push({ ratingId: ratingId, mark: mark });

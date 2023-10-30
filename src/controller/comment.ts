@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
-import { body, validationResult } from 'express-validator';
 import { ExtendedError } from '../class/error.js';
+import { validationResult } from 'express-validator';
 
-import User, { IUserModel } from '../models/user.js';
-import Comment, { ICommentModel } from '../models/comment.js';
-import mongoose, { Query } from 'mongoose';
+import User from '../models/user.js';
+import Comment from '../models/comment.js';
+import mongoose from 'mongoose';
 import Film from '../models/film.js';
 
 type RequestBody = {
@@ -14,6 +14,11 @@ type RequestBody = {
 
 export const postComment: RequestHandler = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new ExtendedError('Validation failed', 422, errors.array());
+      throw error;
+    }
     const filmId = req.params.filmId; 
     const body: RequestBody = req.body;
     const userDecodedData = req.app.locals.decoded;

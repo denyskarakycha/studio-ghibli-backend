@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ExtendedError } from '../class/error.js';
-import jwt, { Jwt } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 declare module 'jsonwebtoken' {
   export interface UserDataJwtPayload extends jwt.JwtPayload {

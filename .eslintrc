@@ -2,8 +2,9 @@
     "env": { 
         "browser": true
     },
+
     "parser": "@typescript-eslint/parser",
-    "extends": ["plugin: @typescript-eslint/recommended"],
+    "extends": ["plugin:@typescript-eslint/recommended"],
     "parserOptions": {
         "ecmaVersion": "ES6",
         "sourceType": "module"

@@ -1,14 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-type TRating = {
-  ratingId: {
-    type: Schema.Types.ObjectId;
-  };
-  averageRAting: {
-    type: Number;
-    default: 0;
-  };
-};
 
 export interface IFilmModel extends Document {
   title: string;

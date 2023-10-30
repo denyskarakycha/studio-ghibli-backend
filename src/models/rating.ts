@@ -1,5 +1,5 @@
 import mongoose, {Schema, Document} from 'mongoose';
-import { IFilmModel } from './film.js';
+
 
 export interface IRatingModel extends Document {
     filmId: mongoose.Types.ObjectId
